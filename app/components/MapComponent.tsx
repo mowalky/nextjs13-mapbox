@@ -35,20 +35,18 @@ export function MapBoxComponent() {
 
   return (
     <>
-      <div>
-        <div
-          ref={mapDiv}
-          className="mapDiv"
-          style={{
-            position: "absolute",
-            top: 0,
-            zIndex: 5,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-          }}
-        />
-      </div>
+      <div
+        ref={mapDiv}
+        className="mapDiv"
+        style={{
+          position: "absolute",
+          top: 0,
+          zIndex: 5,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+        }}
+      />
     </>
   );
 }

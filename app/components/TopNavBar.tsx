@@ -1,4 +1,4 @@
-const TopNavBar = () => {
+const TopNavBar = ({ update }: any) => {
   return (
     <div
       style={{
@@ -9,7 +9,9 @@ const TopNavBar = () => {
         zIndex: 10,
         boxShadow: "0 0 15px 15px rgba(0,0,0,0.5)",
       }}
-    ></div>
+    >
+      <button onClick={update}>Update</button>
+    </div>
   );
 };
 

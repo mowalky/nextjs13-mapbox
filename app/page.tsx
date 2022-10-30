@@ -49,12 +49,59 @@ const data = {
   ],
 };
 
+const data2 = {
+  basemap: "streets-vector",
+  layers: [
+    {
+      name: "MSUMFacilities",
+      data: {
+        type: "geojson",
+        data: msumCampus,
+      },
+      layerprops: {
+        id: "MSUMFacilities",
+        type: "fill-extrusion",
+        source: "MSUMFacilities",
+        //extrude buildings
+        paint: {
+          "fill-extrusion-color": [
+            "match",
+            ["get", "BLDU"],
+            "Residential",
+            "#000",
+            "Academic",
+            "#000",
+            "Athletics",
+            "#000",
+            "Administrative",
+            "#000",
+            "Facilities",
+            "#149ECE",
+            "Student Services",
+            "#000",
+            "Other",
+            "#F97C5A",
+            "#000000",
+          ],
+          "fill-extrusion-height": ["get", "BLDH"],
+        },
+      },
+    },
+  ],
+};
+
 export default function Home() {
-  const [mapData, setMapData] = useState(data);
+  const [mapData, setMapData] = useState(data2);
+  const [toggle, setToggle] = useState(false);
+
+  const update = () => {
+    toggle ? setMapData(data) : setMapData(data2);
+    setToggle(!toggle);
+  };
 
   return (
     <div>
-      <TopNavBar />
+      <TopNavBar update={update} />
       <Map mapData={mapData} />
     </div>
   );

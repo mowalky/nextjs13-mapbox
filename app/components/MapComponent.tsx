@@ -14,6 +14,13 @@ export function MapBoxComponent({ mapData }: any) {
   const [zoom, setZoom] = useState(16);
   const [loaded, setLoaded] = useState(false);
 
+  const loadMapData = () => {
+    for (let i = 0; i < mapData.layers.length; i++) {
+      map.current.addSource(mapData.layers[i].name, mapData.layers[i].data);
+      map.current.addLayer(mapData.layers[i].layerprops);
+    }
+  };
+
   useEffect(() => {
     if (map.current) {
       map.current.remove();
@@ -30,12 +37,21 @@ export function MapBoxComponent({ mapData }: any) {
 
     map.current.on("load", () => {
       setLoaded(true);
-      for (let i = 0; i < mapData.layers.length; i++) {
-        map.current.addSource(mapData.layers[i].name, mapData.layers[i].data);
-        map.current.addLayer(mapData.layers[i].layerprops);
-      }
+      loadMapData();
     });
   }, []);
+
+  useEffect(() => {
+    if (loaded) {
+      const sources = map.current.getStyle().sources;
+      for (let source in sources) {
+        map.current.removeLayer(source);
+        map.current.removeSource(source);
+      }
+
+      loadMapData();
+    }
+  }, [mapData]);
 
   return (
     <>

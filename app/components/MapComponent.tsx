@@ -44,9 +44,13 @@ export function MapBoxComponent({ mapData }: any) {
   useEffect(() => {
     if (loaded) {
       const sources = map.current.getStyle().sources;
+      console.log(sources);
+
       for (let source in sources) {
-        map.current.removeLayer(source);
-        map.current.removeSource(source);
+        if (source !== "composite") {
+          map.current.removeLayer(source);
+          map.current.removeSource(source);
+        }
       }
 
       loadMapData();

@@ -8,7 +8,9 @@ export function MapBoxComponent() {
   mapboxgl.accessToken = token;
   const mapDiv = useRef<any>(null);
   const map = useRef<any>(null);
-  const [lnglat, setLngLat] = useState([-96.754999, 46.867261]);
+  const [lnglat, setLngLat] = useState<mapboxgl.LngLatLike>([
+    -96.754999, 46.867261,
+  ]);
   const [zoom, setZoom] = useState(16);
   const [loaded, setLoaded] = useState(false);
 

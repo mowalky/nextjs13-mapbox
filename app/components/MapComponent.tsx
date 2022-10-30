@@ -3,7 +3,7 @@
 import mapboxgl from "mapbox-gl";
 import React, { useEffect, useRef, useState } from "react";
 
-export function MapBoxComponent() {
+export function MapBoxComponent({ mapData }: any) {
   const token = process.env.NEXT_PUBLIC_MAPBOX_TOKEN as string;
   mapboxgl.accessToken = token;
   const mapDiv = useRef<any>(null);
@@ -30,6 +30,10 @@ export function MapBoxComponent() {
 
     map.current.on("load", () => {
       setLoaded(true);
+      for (let i = 0; i < mapData.layers.length; i++) {
+        map.current.addSource(mapData.layers[i].name, mapData.layers[i].data);
+        map.current.addLayer(mapData.layers[i].layerprops);
+      }
     });
   }, []);
 
